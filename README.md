@@ -25,13 +25,6 @@ docker run -it \
   -e "LOG_DIR=/logs" \
   -e "OUT_FOLDER=/downloads" \
   -e "CONCURRENT_DL=4" \
-  e99fc99a150232eb0176d5ff3140cedc0c600167e0c61cc3e4cd1eff04c42b28docker run -it \
-  -p 4321:4321 \
-  -v ./downloads:/downloads \
-  -v ./logs:/logs \
-  -e "LOG_DIR=logs" \
-  -e "OUT_FOLDER=downloads" \
-  -e "CONCURRENT_DL=4" \
   e99fc99a150232eb0176d5ff3140cedc0c600167e0c61cc3e4cd1eff04c42b28
 ```
 
