@@ -28,7 +28,21 @@ docker run -it \
   e99fc99a150232eb0176d5ff3140cedc0c600167e0c61cc3e4cd1eff04c42b28
 ```
 
-## 🧞 Commands
+## Screenshots
+
+### Home Screen
+![Home](images/home.png)
+
+### Search Results
+![Search Results](images/search.png)
+
+### Series Details
+![Series Details](images/details.png)
+
+### Status Page
+![Status](images/status.png)
+
+## 🧞 Dev Commands
 
 All commands are run from the root of the project, from a terminal:
 

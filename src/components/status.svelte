@@ -61,10 +61,10 @@
   <tbody>
     {#each logs as log}
       <tr class="rounded-lg">
-        <td class="row-entry max-w-[100px] lg:max-w-fit truncate">{log.filename}</td>
+        <td class="row-entry max-w-[100px] lg:max-w-fit truncate rounded-l-full">{log.filename}</td>
         <td class="row-entry max-w-[80px] truncate">{log.currentPercentage === 100 ? "0KiB/s" : log.currentSpeedText}</td>
         <td class="row-entry">{log.estimatedFileSize}</td>
-        <td class="row-entry w-1/3 sm:w-1/3 lg:w-1/2">
+        <td class="row-entry w-1/3 sm:w-1/3 lg:w-1/2 rounded-r-full">
           <div class="w-full bg-gray-900 rounded-full">
             <div class="progress" style="width: {log.currentPercentage}%">
               {log.currentPercentage}%
@@ -96,26 +96,28 @@
 </table>
 
 <div class="grid grid-cols-2 gap-4">
-  <div class="">
+  <!-- Complete -->
+  <div>
     <h2 class="text-4xl font-extrabold dark:text-white">Complete</h2>
     <table class="w-full text-[#fafafa] border-separate border-spacing-y-2 top-1">
       <tbody>
         {#each complete as entry}
-          <tr class="rounded-lg">
-            <td class="row-entry truncate">{entry}</td>
+          <tr>
+            <td class="row-entry truncate rounded-full">{entry}</td>
           </tr>
         {/each}
         <!-- More people... -->
       </tbody>
     </table>
   </div>
-  <div class="">
+  <!-- Queue -->
+  <div>
     <h2 class="text-4xl font-extrabold dark:text-white">Queue</h2>
     <table class="w-full text-[#fafafa] border-separate border-spacing-y-2 top-1">
       <tbody>
         {#each queue as entry}
-          <tr class="rounded-lg">
-            <td class="row-entry truncate">{entry}</td>
+          <tr>
+            <td class="row-entry truncate rounded-full">{entry}</td>
           </tr>
         {/each}
         <!-- More people... -->
