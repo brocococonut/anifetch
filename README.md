@@ -1,33 +1,39 @@
-# Astro Starter Kit: Minimal
+# AniFetch
 
+A simple anime searcher and downloader with inspiration from the android app [Anime Scrap](https://github.com/fakeyatogod/AnimeScrap). The easiest way to run this would be to build the docker image and use that.
+
+An example of running this via Docker is as follows
 ```sh
-npm create astro@latest -- --template minimal
+# Clone the repository
+git clone https://github.com/brocococonut/anifetch
+# Enter the directory
+cd anifetch
+
+# Build the docker image
+docker build .
+# Output:
+# ....
+#  => exporting to image                                                                                                 0.0s
+#  => => exporting layers                                                                                                0.0s
+#  => => writing image sha256:e99fc99a150232eb0176d5ff3140cedc0c600167e0c61cc3e4cd1eff04c42b28
+
+# Run the image
+docker run -it \
+  -p 4321:4321 \
+  -v ./downloads:/downloads \
+  -v ./logs:/logs \
+  -e "LOG_DIR=/logs" \
+  -e "OUT_FOLDER=/downloads" \
+  -e "CONCURRENT_DL=4" \
+  e99fc99a150232eb0176d5ff3140cedc0c600167e0c61cc3e4cd1eff04c42b28docker run -it \
+  -p 4321:4321 \
+  -v ./downloads:/downloads \
+  -v ./logs:/logs \
+  -e "LOG_DIR=logs" \
+  -e "OUT_FOLDER=downloads" \
+  -e "CONCURRENT_DL=4" \
+  e99fc99a150232eb0176d5ff3140cedc0c600167e0c61cc3e4cd1eff04c42b28
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
@@ -41,7 +47,3 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
