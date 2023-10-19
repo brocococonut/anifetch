@@ -1,0 +1,11 @@
+---
+import Layout from "$layouts/layout.astro";
+import StatusTable from "$components/status.svelte";
+import { fetchLogInfo } from "./api/status";
+
+const info = await fetchLogInfo()
+---
+
+<Layout title="Status">
+  <StatusTable client:load info={info}></StatusTable>
+</Layout>

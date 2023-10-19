@@ -1,0 +1,12 @@
+---
+import Search from '$components/search.svelte';
+import Layout from '$layouts/layout.astro'
+import {AnimeRepository} from '$utils/AnimeRepository'
+
+const latest = await AnimeRepository.getTrendingAnimeFromSite()
+---
+<Layout title="Home">
+	<form action="/search" method="get">
+		<Search latest={latest}/>
+	</form>
+</Layout>

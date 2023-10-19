@@ -1,0 +1,33 @@
+---
+import Layout from "$layouts/layout.astro";
+import AnimeList from '$components/anime_list.svelte'
+import {AnimeRepositoryImpl} from '$utils/AnimeRepository'
+const q = Astro.url.searchParams.get('q')
+let provider = Astro.url.searchParams.get('provider') || 'yugen'
+
+if (!['yugen', 'kiss_kh'].includes(provider)) {
+  provider = 'yugen'
+}
+
+if (!q || q.length < 2) {
+  return {
+    status: 400,
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+    },
+    body: `
+      <h1>400 Bad Request</h1>
+      <p>Missing or invalid query parameter <code>q</code></p>
+    `,
+  }
+}
+
+const AnimeRepository = new AnimeRepositoryImpl()
+AnimeRepository.setProvider(provider)
+const search = await AnimeRepository.searchAnimeFromSite(q)
+
+---
+
+<Layout title="Search Results">
+  <AnimeList anime={search} provider={provider}/>
+</Layout>

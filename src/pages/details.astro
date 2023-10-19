@@ -1,0 +1,29 @@
+---
+import AnimeDetails from "$components/anime_details.svelte";
+import Layout from "$layouts/layout.astro";
+import { AnimeRepositoryImpl } from "$utils/AnimeRepository";
+const anime = Astro.url.searchParams.get("anime");
+let provider = Astro.url.searchParams.get("provider") || "yugen";
+
+if (!["yugen", "kiss_kh"].includes(provider)) {
+  provider = "yugen";
+}
+
+if (!anime) {
+  return Astro.redirect("/");
+}
+
+const anime_link = decodeURIComponent(anime);
+
+const AnimeRepository = new AnimeRepositoryImpl();
+AnimeRepository.setProvider(provider);
+const series_details = await AnimeRepository.getAnimeDetailsFromSite(anime_link);
+
+if (!series_details) {
+  return Astro.redirect("/");
+}
+---
+
+<Layout title={series_details.anime_name}>
+  <AnimeDetails anime={series_details} anime_link={anime_link} provider={provider} client:load />
+</Layout>
