@@ -1,0 +1,14 @@
+# APPNICENAME=Anifetch
+# APPDESCRIPTION=A simple anime streaming site scraper/downlaoder. Please support the anime's original release.
+version: '3.4'
+services:
+  anifetch:
+    build: .
+    container_name: anifetch
+    restart: unless-stopped
+    ## the container's port must be the same with the STASH_PORT in the environment section
+    ports:
+      - "4321:4321"
+    volumes:
+      - ./downloads:/downloads
+      - ./logs:/logs
