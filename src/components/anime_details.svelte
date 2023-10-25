@@ -61,7 +61,7 @@
             <div class="text-center">
               <h3 class="text-2xl">{key}</h3>
               <ul>
-                <li><button class="px-6 py-0.5 bg-[#18a9ff] rounded-full" on:click={() => downloadAll(key)}
+                <li><button class="px-6 py-0.5 mb-1 bg-[#18a9ff] rounded-full" on:click={() => downloadAll(key)}
                   ><pre class="uppercase">Download All {key}</pre></button
                 ></li>
                 {#each Object.entries(anime.anime_episodes[key]) as [name, num]}

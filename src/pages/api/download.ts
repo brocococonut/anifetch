@@ -54,7 +54,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     subfolder: sanitised_name,
   })
   const info = await dl.doInfo()
-  dl.file_name = `${sanitised_name} - e${episode_name.padStart(2, "0")} (${episode_dub === 'DUB' ? 'DUB' : 'SUB'}).${info.ext}`
+  dl.file_name = `${sanitised_name} - e${episode_name.padStart(2, "0")} [${episode_dub === 'DUB' ? 'DUB' : 'SUB'}].${info.ext}`
 
   const added = downloadQueue.addDownload(dl)
   if (!added) {
