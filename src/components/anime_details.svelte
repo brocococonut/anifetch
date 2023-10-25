@@ -30,6 +30,19 @@
       toast(data.message, 4000, "success");
     }
   };
+
+  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const downloadAll = async (dubbing: string) => {
+    // Add all the episodes to the queue with a delay of 500ms
+    const entries = Object.entries(anime.anime_episodes[dubbing]);
+
+    for (let i = 0; i < entries.length; i++) {
+      const [name, id] = entries[i];
+      await sleep(500);
+      await addDownload(id, dubbing);
+    }
+  }
 </script>
 
 <section class="">
@@ -48,6 +61,9 @@
             <div class="text-center">
               <h3 class="text-2xl">{key}</h3>
               <ul>
+                <li><button class="px-6 py-0.5 bg-[#18a9ff] rounded-full" on:click={() => downloadAll(key)}
+                  ><pre class="uppercase">Download All {key}</pre></button
+                ></li>
                 {#each Object.entries(anime.anime_episodes[key]) as [name, num]}
                   <li>
                     <!-- svelte-ignore a11y-click-events-have-key-events -->
