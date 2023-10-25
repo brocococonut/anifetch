@@ -142,7 +142,7 @@ export class Download {
       // Delete the log file
       if (Download.log) {
         await sleep(2000);
-        await wrappedExec(`rm -f ${this.log_path}/${this.file_name}.log.txt`);
+        await wrappedExec(`rm -f '${this.log_path}/${this.file_name}.log.txt'`);
       }
     }
   }
