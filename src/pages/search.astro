@@ -24,7 +24,7 @@ if (!q || q.length < 2) {
 
 const AnimeRepository = new AnimeRepositoryImpl()
 AnimeRepository.setProvider(provider)
-const search = await AnimeRepository.searchAnimeFromSite(q)
+const search = await AnimeRepository.searchAnimeFromSite(encodeURIComponent(q))
 
 ---
 
