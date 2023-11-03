@@ -130,19 +130,25 @@ export class Download {
     cmd += " & echo $!";
 
     try {
+      // if the final file exists it means the download is already complete, so we can skip to the finally block
+      if (existsSync(`${this.full_download_path}/${this.file_name}`)) {
+        console.log(`Skipping "${this.file_name}" as it already exists in "${this.full_download_path}"`)
+        return;
+      }
+
       await wrappedExec(cmd);
       await rename(`${this.download_path}/${this.file_name}`, `${this.full_download_path}/${this.file_name}`);
-      if (Download.log) {
-        sleep(2000).then(() => wrappedExec(`rm -f '${this.log_path}/${this.file_name}.log.txt'`));
-      }
     } catch (error) {
       console.error(error);
     } finally {
       this.complete = true;
+
       // Delete the log file
       if (Download.log) {
-        await sleep(2000);
-        await wrappedExec(`rm -f '${this.log_path}/${this.file_name}.log.txt'`);
+        if (existsSync(`${this.log_path}/${this.file_name}.log.txt`)) {
+          await sleep(2000);
+          await wrappedExec(`rm -f '${this.log_path}/${this.file_name}.log.txt'`);
+        }
       }
     }
   }

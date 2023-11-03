@@ -12,12 +12,13 @@ const defaultHeaders = new Headers([
 ]);
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const { episode_id, episode_dub, anime_link, anime, provider } = (<{
+  const { episode_id, episode_dub, anime_link, anime, provider, episode_count } = (<{
     episode_id: string;
     episode_dub: string;
     anime_link: string;
     anime: AnimeDetails;
     provider: string;
+    episode_count: string;
   }>await request.json());
 
   if (!episode_id || !episode_dub || !anime || !anime_link || !provider) {
@@ -54,7 +55,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     subfolder: sanitised_name,
   })
   const info = await dl.doInfo()
-  dl.file_name = `${sanitised_name} - e${episode_name.padStart(2, "0")} [${episode_dub === 'DUB' ? 'DUB' : 'SUB'}].${info.ext}`
+  const padding = episode_count.length > 1 ? episode_count.length : 2
+  dl.file_name = `${sanitised_name} - e${episode_name.padStart(padding, "0")} [${episode_dub === 'DUB' ? 'DUB' : 'SUB'}].${info.ext}`
 
   const added = downloadQueue.addDownload(dl)
   if (!added) {

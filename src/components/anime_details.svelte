@@ -7,7 +7,13 @@
   export let provider: string;
 
   const addDownload = async (ep_id: string, dubbing: string) => {
-    toast(`Adding episode ${Object.entries(anime.anime_episodes[dubbing]).find(([, id]) => id === ep_id)![0]} (${dubbing}) to the queue`, 4000, "info");
+    toast(
+      `Adding episode ${
+        Object.entries(anime.anime_episodes[dubbing]).find(([, id]) => id === ep_id)![0]
+      } (${dubbing}) to the queue`,
+      4000,
+      "info"
+    );
     const res = await fetch(`/api/download`, {
       method: "POST",
       headers: {
@@ -16,9 +22,10 @@
       body: JSON.stringify({
         episode_id: ep_id,
         episode_dub: dubbing,
-        anime_link: anime_link,
-        anime: anime,
+        anime_link,
+        anime,
         provider,
+        episode_count: Object.keys(anime.anime_episodes[dubbing]).length,
       }),
     });
 
@@ -42,7 +49,7 @@
       await sleep(500);
       await addDownload(id, dubbing);
     }
-  }
+  };
 </script>
 
 <section class="">
@@ -61,14 +68,17 @@
             <div class="text-center">
               <h3 class="text-2xl">{key}</h3>
               <ul>
-                <li><button class="px-6 py-0.5 mb-1 bg-[#18a9ff] rounded-full" on:click={() => downloadAll(key)}
-                  ><pre class="uppercase">Download All {key}</pre></button
-                ></li>
+                <li>
+                  <button class="px-6 py-0.5 mb-1 bg-[#18a9ff] rounded-full" on:click={() => downloadAll(key)}
+                    ><pre class="uppercase">Download All {key}</pre></button
+                  >
+                </li>
                 {#each Object.entries(anime.anime_episodes[key]) as [name, num]}
                   <li>
                     <!-- svelte-ignore a11y-click-events-have-key-events -->
-                    <button class="px-6 py-0.5 hover:bg-[#18a9ff] rounded-full transition-all" on:click={() => addDownload(num, key)}
-                      ><pre>Ep. {name}</pre></button
+                    <button
+                      class="px-6 py-0.5 hover:bg-[#18a9ff] rounded-full transition-all"
+                      on:click={() => addDownload(num, key)}><pre>Ep. {name}</pre></button
                     >
                   </li>
                 {/each}
