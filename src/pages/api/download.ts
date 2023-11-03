@@ -55,7 +55,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
     subfolder: sanitised_name,
   })
   const info = await dl.doInfo()
-  const padding = episode_count.length > 1 ? episode_count.length : 2
+  
+  // Handle the padding of the episode number
+  const episodes = episode_count.toString().split('').length
+  const padding = episodes > 1 ? episodes : 2
+
   dl.file_name = `${sanitised_name} - e${episode_name.padStart(padding, "0")} [${episode_dub === 'DUB' ? 'DUB' : 'SUB'}].${info.ext}`
 
   const added = downloadQueue.addDownload(dl)
