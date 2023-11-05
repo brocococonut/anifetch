@@ -2,11 +2,19 @@
 import Search from '$components/search.svelte';
 import Layout from '$layouts/layout.astro'
 import {AnimeRepository} from '$utils/AnimeRepository'
+import AnimeList from '$components/anime_list.svelte'
 
 const latest = await AnimeRepository.getTrendingAnimeFromSite()
 ---
 <Layout title="Home">
-	<form action="/search" method="get">
-		<Search latest={latest}/>
-	</form>
+	<div class="mt-6 md:mt-[40vh]">
+
+		<form action="/search" method="get">
+			<Search latest={latest}/>
+		</form>
+	</div>
+	<div class="mt-8 md:mt-24">
+
+		<AnimeList anime={latest} provider={'yugen'}/>
+	</div>
 </Layout>
